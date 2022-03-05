@@ -1,0 +1,33 @@
+{
+  "name": "theme-snippets",
+  "version": "0.0.1",
+  "description": "Vortex extension",
+  "main": "./dist/index.js",
+  "scripts": {
+    "webpack": "node ./node_modules/webpack/bin/webpack --config webpack.config.js --progress --profile --color",
+    "build": "npm run webpack && extractInfo && copyfiles -f ./src/snippets.scss ./dist/ && copyfiles -f ./src/style.scss ./dist/ && copyfiles -f ./gameart.png ./dist/"
+  },
+  "author": "Tannin",
+  "license": "GPLv3",
+  "devDependencies": {
+    "@types/node": "^12.12.35",
+    "@types/react": "^16.9.43",
+    "@types/react-bootstrap": "^0.32.20",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
+    "bluebird": "^3.7.2",
+    "copyfiles": "^2.4.1",
+    "i18next": "^19.0.1",
+    "react": "^16.12.0",
+    "react-bootstrap": "^0.33.0",
+    "react-dom": "^16.12.0",
+    "react-i18next": "^11.15.5",
+    "react-redux": "^7.2.6",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "vortex-api": "github:Nexus-Mods/vortex-api",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {}
+}

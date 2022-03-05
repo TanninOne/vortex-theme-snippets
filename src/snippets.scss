@@ -1,0 +1,142 @@
+// id: no-get-more-mods-overlay
+// name: Remove "Get More Mods" overlay
+// description: Return the "Get More Mods" button to the bottom of the table, instead of having it stickied to the bottom of the page
+#more-mods-container {
+  position: static;
+}
+// endsnippet
+
+// id: resizeable-notes
+// name: Allow mod notes be resized
+// description: Allows the text area where you can enter notes on mods to be resized - in case you like to make extensive notes
+.table-detail-notes .textarea-notes {
+  resize: both;
+}
+// endsnippet
+
+// id: mod-details-no-overlay
+// name: No mod details pane overlay
+// description: Show the mod details pane side-by-side with the mod list instead of as an overlay
+.table-details-pane {
+  position: static;
+  &.open {
+    box-shadow: unset;
+  }
+}
+// endsnippet
+
+// id: toolbar-buttons-no-text
+// name: Show toolbar buttons without text
+// description: This will have the toolbar buttons along the top of pages with only icons, text is shown on hover
+.mainpage-header {
+  height: 40px !important;
+  padding: 8px;
+  box-shadow: 0 0 6px 0 #000;
+  .menubar {
+    height: 100%;
+  }
+}
+
+.mainpage-header .btn {
+  .button-text {
+    opacity: 0;
+    position: absolute;
+    top: 32px;
+    z-index: 1;
+    transition: opacity 250ms ease;
+    background-color: $brand-bg;
+    border: $border-width solid $border-color;
+    padding: 8px;
+    font-size: 1em;
+    pointer-events: none;
+  }
+
+  &:first-child {
+    .button-text {
+      left: 0;
+    }
+  }
+
+  &:hover .button-text {
+    opacity: 1;
+    transition: opacity 250ms ease 100ms;
+  }
+}
+// endsnippet
+
+// id: no-grayed-out-games
+// name: No longer gray out undiscovered games
+// description: Games Vortex couldn't autodiscover are grayed out even though you can still interact with them
+.game-thumbnail.game-thumbnail-undiscovered img {
+  filter: none;
+}
+// endsnippet
+
+// id: remove-alpha-badge
+// name: Remove "alpha" badge from Collections tab
+// description: Removes the badge indicating collections is in a prerelease state. If you've found this toggles I assume you saw that badge...
+.main-nav-group #Collections .badge {
+  display: none;
+}
+// endsnippet
+
+// id: web-style-cursors
+// name: More web-like cursors
+// description: In websites the mouse cursor changes to highlight buttons, Vortex behaves more like a "traditional" desktop application.
+[role="button"] {
+  cursor: pointer;
+}
+
+a, .btn {
+  cursor: pointer;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  cursor: not-allowed;
+}
+
+.radio label, .checkbox label {
+  cursor: pointer;
+}
+
+.Select-arrow-zone {
+  cursor: pointer;
+}
+
+:not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
+  cursor: revert;
+}
+
+.toggle-container {
+  cursor: pointer;
+}
+
+// endsnippet
+
+// id: web-style-selection
+// name: Allow text selection
+// description: Regular text in Vortex can't be selected (as usual with desktop applications), this allows all text to be selected
+
+:not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
+  -webkit-user-select: unset;
+  user-select: unset;
+}
+
+// endsnippet
+
+// id: table-mods-no-linebreaks
+// name: No line wrap in mods table
+// description: Prevents long lines (e.g. the mod name) from wrapping around to multiple lines in the mod list. They will be cut off instead.
+
+#table-mods .header-name {
+  width: auto;
+}
+
+.xtd.table-mods span {
+  max-width: 50em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// endsnippet
