@@ -2,13 +2,15 @@ import * as React from 'react';
 import { Alert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import {  More, Toggle, tooltip, types, util } from 'vortex-api';
+import { ComponentEx, More, Toggle, tooltip, types, util } from 'vortex-api';
 import { CONTRIBUTE_URL } from './config';
 import { ISnippet } from './types';
 
 export interface IThemeSnippetsProps {
-  snippets: ISnippet[];
-  snippetTime: Date;
+  snippetInfo: {
+    snippets: ISnippet[],
+    time: Date,
+  };
   isCustomTheme: (themeName: string) => Promise<boolean>;
   downloadSnippets: () => Promise<void>;
   onRead: (theme: string) => Promise<{ [id: string]: boolean }>;
@@ -16,7 +18,8 @@ export interface IThemeSnippetsProps {
 }
 
 function ThemeSnippets(props: IThemeSnippetsProps) {
-  const { isCustomTheme, onRead, onSave, snippets, snippetTime } = props;
+  const { downloadSnippets, isCustomTheme, onRead, onSave } = props;
+  const { snippets, time } = props.snippetInfo;
 
   const { t } = useTranslation('theme-snippets');
 
@@ -51,6 +54,12 @@ function ThemeSnippets(props: IThemeSnippetsProps) {
     util.opn(CONTRIBUTE_URL);
   }, []);
 
+  const download = React.useCallback(() => {
+    (async () => {
+      await downloadSnippets();
+    })();
+  }, []);
+
   return (
     <div>
       <Alert bsStyle='warning'>
@@ -71,18 +80,39 @@ function ThemeSnippets(props: IThemeSnippetsProps) {
           </Toggle>
         ))}
       </div>
-      <tooltip.Button tooltip={t('Download updated snippets from github')} >
-        {t('Download updates')}
+      <tooltip.Button
+        tooltip={t('Download updated snippets from github')}
+        onClick={download}
+      >
+        {t('Download snippets')}
       </tooltip.Button>
       <p style={{ display: 'inline', marginLeft: '1em' }}>{t('Last updated: {{time}}', { replace: {
-        time: snippetTime !== undefined ? snippetTime.toLocaleString(language) : t('Bundled'),
+        time: (time !== undefined) ? time.toLocaleString(language) : t('Bundled'),
       } })}</p>
 
-      <a href='#' onClick={openGithub} style={{ marginTop: '1em' }} >
-        {t('Suggest further snippets')}
-      </a>
+      <div style={{ marginTop: '1em' }}>
+        <a href='#' onClick={openGithub} style={{ marginTop: '1em' }} >
+          {t('Suggest further snippets')}
+        </a>
+      </div>
     </div>
   );
 }
 
-export default ThemeSnippets;
+// need this as a hack to make the makeReactive prop work as expected as it doesn't
+// support functional components atm
+class ThemeSnippetsProxy extends ComponentEx<IThemeSnippetsProps, {}> {
+  public componentDidMount() {
+    this.props.snippetInfo['attach']?.(this);
+  }
+
+  public componentWillUnmount() {
+    this.props.snippetInfo['detach']?.(this);
+  }
+
+  public render() {
+    return <ThemeSnippets {...this.props} />
+  }
+}
+
+export default ThemeSnippetsProxy;

@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"7z-bin@Nexus-Mods/7z-bin":
+  version "21.0.7"
+  resolved "https://codeload.github.com/Nexus-Mods/7z-bin/tar.gz/9205dbef515b92696299a67fd4eafbc2c2d3d99d"
+
 "@babel/runtime-corejs2@^7.0.0":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.17.2.tgz#4d7dbc218e958ce48df6250faa73616e8495bc1a"

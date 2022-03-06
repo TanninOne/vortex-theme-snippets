@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "webpack": "node ./node_modules/webpack/bin/webpack --config webpack.config.js --progress --profile --color",
-    "build": "npm run webpack && extractInfo && copyfiles -f ./src/snippets.scss ./dist/ && copyfiles -f ./src/style.scss ./dist/ && copyfiles -f ./gameart.png ./dist/"
+    "bundle7z": "7z a -t7z theme-snippets.7z .\\dist\\index.js .\\dist\\info.json .\\dist\\snippets.scss .\\dist\\style.scss",
+    "build": "npm run webpack && extractInfo && copyfiles -f ./src/snippets.scss ./dist/ && copyfiles -f ./src/style.scss ./dist/"
   },
   "author": "Tannin",
   "license": "GPLv3",
@@ -15,6 +16,7 @@
     "@types/react-bootstrap": "^0.32.20",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
+    "7z-bin": "Nexus-Mods/7z-bin",
     "bluebird": "^3.7.2",
     "copyfiles": "^2.4.1",
     "i18next": "^19.0.1",
